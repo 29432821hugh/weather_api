@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./pics/twicon/twicon.css">
+    <!--===== SCROLL REVEAL =====-->
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+
+<body>
+    <header>
+        <nav>
+            <div class="logo"><i class="twicon-main-island"></i>台灣氣候</div>
+            <div class="burgerLink"></div>
+            <div class="menu">
+                <ul>
+                    <li>
+                        <a href="">全台灣</a>
+                    </li>
+                    <li>
+                        <a href="">北部</a>
+                    </li>
+                    <li>
+                        <a href="">中部</a>
+                    </li>
+                    <li>
+                        <a href="">南部</a>
+                    </li>
+                    <li>
+                        <a href="">東部</a>
+                    </li>
+                    <li>
+                        <a href="">離島</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <main class="cardRegion">
+        <!-- <div><img src="" alt=""></div> -->
+    </main>
+
+
+    <script>
+        var url = 'https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization=CWB-084CA48B-7804-454D-BD88-FA80CAB4374F';
+        // 二維陣列 [ [],[] ]
+        var taiwanCities = [
+            // 全部
+            ['基隆市', '新北市', '臺北市', '桃園市', '新竹市', '新竹縣', '苗栗縣', '臺中市', '南投縣', '彰化縣', '雲林縣', '嘉義市', '嘉義縣', '臺南市', '高雄市', '屏東縣', '宜蘭縣', '花蓮縣', '臺東縣', '澎湖縣', '金門縣', '連江縣'],
+            // 北部
+            ['基隆市', '新北市', '臺北市', '桃園市', '新竹市', '新竹縣', '苗栗縣'],
+            // 中部 
+            ['臺中市', '南投縣', '彰化縣', '雲林縣', '嘉義市', '嘉義縣'],
+            // 南部
+            ['臺南市', '高雄市', '屏東縣'],
+            // 東部
+            ['宜蘭縣', '花蓮縣', '臺東縣'],
+            // 離島
+            ['澎湖縣', '金門縣', '連江縣'],
+        ]
+
+        // 氣候對應圖片
+        var WxPic = ["0000000", "1111111", "./pics/晴時多雲.svg", "./pics/多雲時晴.svg", "./pics/多雲.svg", "./pics/多雲時陰.svg", "./pics/陰時多雲.svg", "./pics/陰天.svg", "./pics/多雲短暫雨.svg", "./pics/多雲時陰短暫雨.svg", "./pics/陰時多雲短暫雨.svg", "./pics/陰短暫雨.svg"]
+
+        var cities22 = taiwanCities[0];
+        var orgData = {};
+
+        fetch_data(url);
+        function fetch_data(url) {
+            fetch(url)
+                .then(function (response) {     // 取得資料json.text，並使用json解析 =>函數名可以自訂
+                    return response.json();
+                })
+                .catch(err =>{
+                    alert('氣象局資料取得失敗，請重新嘗試')
+                })    
+                .then(function (myJson) {
+                    organizing_data(myJson); // 處理資料
+                    arrange_cities();
+                })
+        };
+
+        function organizing_data(myJson) {
+            // 1
+            console.log(myJson);
+            // 2 
+            var locationS = myJson.records.location;
+            console.log(locationS);
+
+            locationS.forEach(eachLocation => {
+                // 城市名稱
+                var cityName = eachLocation.locationName;
+                console.log(cityName);
+
+                // 城市的各氣候元素  Wx PoP MinT CI MaxT 54
+                var weatherElementS = eachLocation.weatherElement
+                console.log(weatherElementS);
+
+                // Wx
+                var Wx = weatherElementS[0].time[0].parameter.parameterName
+
+                // PoP
+                var PoP = weatherElementS[1].time[0].parameter.parameterName;
+
+                // MinT
+                var MinTemp = weatherElementS[2].time[0].parameter.parameterName;
+
+                // CI
+                var CI = weatherElementS[3].time[0].parameter.parameterName;
+
+                // MaxT
+                var MaxTemp = weatherElementS[4].time[0].parameter.parameterName;
+
+                // timeStart
+                var timeStart = weatherElementS[0].time[0].startTime;
+
+                // timeEnd
+                var timeEnd = weatherElementS[0].time[0].endTime;
+
+                // WxValue
+                var WxValue = weatherElementS[0].time[0].parameter.parameterValue;
+
+                // 將城市名稱對應氣候存進物件
+                orgData[cityName] = {
+                    'wxCondition': Wx, 'startTime': timeStart, 'endTime': timeEnd, 'minT': MinTemp, 'maxT': MaxTemp, 'pop': PoP, 'ci': CI, 'WxValue': WxValue,
+                }
+            })
+        };
+
+        //處理所有的每一個城市
+        function arrange_cities() {
+            var cardRegion = document.querySelector('.cardRegion');
+            cardRegion.innerHTML = "";
+
+            cities22.forEach(function (city, index) {
+                var cityData = orgData[city]; //取得陣列中依順序的城市資料
+
+                // 氣候圖片
+                var WxPicIndex = cityData.WxValue;
+                var WxPicUrl = WxPic[WxPicIndex];
+
+                // scaleUp 動畫時間
+                var animationScaleUpTime = 0.25*index + 0.3;
+                console.log(animationScaleUpTime);
+
+                //放這張城市哪片的資料
+                // console.log('cityData', city, cityData);
+                cardRegion.innerHTML +=
+                `
+                <div class="singleCard" style="animation: scaleUp ${animationScaleUpTime}s forwards;">
+                    <h3>${city}</h3>
+                    <p>${cityData.minT}° ~ ${cityData.maxT}°</p>   
+                    <p>${cityData.wxCondition}</p>
+                    <div><img src="${WxPicUrl}"><div>
+                    <p>${cityData.startTime.substr(0, 16).replaceAll('-', "/")}</p>
+                    <p>${cityData.endTime.substr(0, 16).replaceAll('-', "/")}</p>
+            
+                </div>
+                `;
+            });
+        }
+ 
+     
+
+        //========scroll reveal==========//
+        const sr = ScrollReveal({
+            origin: "top",
+            distance: "60px",
+            duration: 1000,
+            // delay: 1,
+        });
+
+        sr.reveal('nav', {});
+
+    </script>
+
+
+</body>
+
+</html>

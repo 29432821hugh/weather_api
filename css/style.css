@@ -1,0 +1,153 @@
+@charset "UTF-8";
+body {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: arial, "Noto Sans", 微軟正黑體, sans-serif;
+  /* Graphics Designed By 30000009006 From <a href="https://zh.lovepik.com/image-401167375/cherry-tree.html">LovePik.com</a> */
+  background-image: url("../pics/Lovepik_com-401167375-cherry-tree.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+ul {
+  margin: 0;
+}
+
+li {
+  list-style: none;
+}
+
+header {
+  width: 100%;
+  /* background-color: #00ffff; */
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding: .5rem 1rem;
+  margin: 30px 0 0 0;
+}
+
+header nav {
+  width: 1100px;
+  height: 40px;
+  background-color: #f2f2f2;
+  border-radius: 25px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding: 5px;
+  -webkit-box-shadow: 5px 5px 3px lightblue;
+          box-shadow: 5px 5px 3px lightblue;
+}
+
+header nav .logo {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+header nav .logo i {
+  color: #6EAC7D;
+  font-size: 40px;
+}
+
+header nav .menu ul {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+header nav .menu ul li {
+  padding: 0.25rem 0.9rem;
+  margin: 0 1.5rem;
+  border-radius: 20px;
+}
+
+header nav .menu ul li a {
+  color: #333333;
+  text-decoration: none;
+}
+
+header nav .menu ul li:hover {
+  background-color: #ffffffaf;
+}
+
+.burgerLink {
+  display: none;
+}
+
+main {
+  width: 1100px;
+  height: auto;
+  margin: 0 auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  padding-top: 50px;
+}
+
+.singleCard {
+  width: 32%;
+  height: auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: #ffffffe0;
+  margin: 0 1.333% 1.333% 0;
+  border-radius: 15px;
+  -webkit-box-shadow: 5px 5px 3px rgba(228, 173, 230, 0.658);
+          box-shadow: 5px 5px 3px rgba(228, 173, 230, 0.658);
+  color: #333;
+  font-weight: bold;
+}
+
+.singleCard:hover {
+  background-color: #ffffff;
+}
+
+@-webkit-keyframes scaleUp {
+  from {
+    -webkit-transform: scale(0);
+            transform: scale(0);
+  }
+  to {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+}
+
+@keyframes scaleUp {
+  from {
+    -webkit-transform: scale(0);
+            transform: scale(0);
+  }
+  to {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+}
+/*# sourceMappingURL=style.css.map */
