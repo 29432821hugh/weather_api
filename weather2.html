@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="./pics/twicon/twicon.css">
     <!--===== SCROLL REVEAL =====-->
     <script src="https://unpkg.com/scrollreveal"></script>
-    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./scss/style.css">
 </head>
 
 
@@ -21,22 +21,22 @@
             <div class="menu">
                 <ul>
                     <li>
-                        <a href="">全台灣</a>
+                        <a class="allBtn" href="#">全台灣</a>
                     </li>
                     <li>
-                        <a href="">北部</a>
+                        <a class="northBtn" href="#">北部</a>
                     </li>
                     <li>
-                        <a href="">中部</a>
+                        <a class="middleBtn" href="#">中部</a>
                     </li>
                     <li>
-                        <a href="">南部</a>
+                        <a class="southBtn" href="#">南部</a>
                     </li>
                     <li>
-                        <a href="">東部</a>
+                        <a class="eastBtn" href="#" >東部</a>
                     </li>
                     <li>
-                        <a href="">離島</a>
+                        <a class="islandsBtn" href="#">離島</a>
                     </li>
                 </ul>
             </div>
@@ -67,8 +67,6 @@
 
         // 氣候對應圖片
         var WxPic = ["0000000", "1111111", "./pics/晴時多雲.svg", "./pics/多雲時晴.svg", "./pics/多雲.svg", "./pics/多雲時陰.svg", "./pics/陰時多雲.svg", "./pics/陰天.svg", "./pics/多雲短暫雨.svg", "./pics/多雲時陰短暫雨.svg", "./pics/陰時多雲短暫雨.svg", "./pics/陰短暫雨.svg"]
-
-        var cities22 = taiwanCities[0];
         var orgData = {};
 
         fetch_data(url);
@@ -82,7 +80,7 @@
                 })    
                 .then(function (myJson) {
                     organizing_data(myJson); // 處理資料
-                    arrange_cities();
+                    show_taiwanCities();
                 })
         };
 
@@ -133,12 +131,86 @@
             })
         };
 
-        //處理所有的每一個城市
-        function arrange_cities() {
-            var cardRegion = document.querySelector('.cardRegion');
+
+        var cardRegion = document.querySelector('.cardRegion');
+        var allBtn = document.querySelector('.allBtn');
+        var northBtn = document.querySelector('.northBtn');
+        var middleBtn = document.querySelector('.middleBtn');
+        var southBtn = document.querySelector('.southBtn');
+        var eastBtn = document.querySelector('.eastBtn');
+        var islandsBtn = document.querySelector('.islandsBtn');
+
+
+        // 所有城市
+        allBtn.onclick = (e)=>{
+            show_taiwanCities();
+        }
+        // 北部
+        northBtn.onclick = (e)=>{
+            show_northCities();
+        }
+
+        // 中部
+        middleBtn.onclick = (e)=>{
+            show_middleCities();
+        }
+
+        // 南部
+        southBtn.onclick = (e)=>{
+            show_southCities();
+        }
+
+        // 東部
+        eastBtn.onclick = (e)=>{
+            show_eastCities();
+        }
+
+        // 離島
+        islandsBtn.onclick = (e)=>{
+            show_islandsCities();
+        }
+        
+        // 所有城市
+        function show_taiwanCities() {
+                var allCities = taiwanCities[0];
+                cardRegion.innerHTML = "";
+
+                allCities.forEach(function (city, index) {
+                    var cityData = orgData[city]; //取得陣列中依順序的城市資料
+
+                    // 氣候圖片
+                    var WxPicIndex = cityData.WxValue;
+                    var WxPicUrl = WxPic[WxPicIndex];
+
+                    // scaleUp 動畫時間
+                    var animationScaleUpTime = 0.25*index + 0.3;
+                    console.log(animationScaleUpTime);
+
+                    //放這張城市哪片的資料
+                    // console.log('cityData', city, cityData);
+                    cardRegion.innerHTML +=
+                    `
+                    <div class="singleCard" style="animation: scaleUp ${animationScaleUpTime}s forwards;">
+                        <h3>${city}</h3>
+                        <p>${cityData.minT}° ~ ${cityData.maxT}°</p>   
+                        <p>${cityData.wxCondition}</p>
+                        <div><img src="${WxPicUrl}"><div>
+                        <p>${cityData.startTime.substr(0, 16).replaceAll('-', "/")}</p>
+                        <p>${cityData.endTime.substr(0, 16).replaceAll('-', "/")}</p>
+                
+                    </div>
+                    `;
+                });
+        }
+        
+
+        // 北部城市
+        function show_northCities() {
+            var northCities = taiwanCities[1];
+
             cardRegion.innerHTML = "";
 
-            cities22.forEach(function (city, index) {
+            northCities.forEach(function (city, index) {
                 var cityData = orgData[city]; //取得陣列中依順序的城市資料
 
                 // 氣候圖片
@@ -165,6 +237,147 @@
                 `;
             });
         }
+
+        
+
+         // 中部城市
+        function show_middleCities() {
+            var middleCities = taiwanCities[2];
+
+            cardRegion.innerHTML = "";
+
+            middleCities.forEach(function (city, index) {
+                var cityData = orgData[city]; //取得陣列中依順序的城市資料
+
+                // 氣候圖片
+                var WxPicIndex = cityData.WxValue;
+                var WxPicUrl = WxPic[WxPicIndex];
+
+                // scaleUp 動畫時間
+                var animationScaleUpTime = 0.25*index + 0.3;
+                console.log(animationScaleUpTime);
+
+                //放這張城市哪片的資料
+                // console.log('cityData', city, cityData);
+                cardRegion.innerHTML +=
+                `
+                <div class="singleCard" style="animation: scaleUp ${animationScaleUpTime}s forwards;">
+                    <h3>${city}</h3>
+                    <p>${cityData.minT}° ~ ${cityData.maxT}°</p>   
+                    <p>${cityData.wxCondition}</p>
+                    <div><img src="${WxPicUrl}"><div>
+                    <p>${cityData.startTime.substr(0, 16).replaceAll('-', "/")}</p>
+                    <p>${cityData.endTime.substr(0, 16).replaceAll('-', "/")}</p>
+            
+                </div>
+                `;
+            });
+        }
+
+         
+
+         // 南部城市
+         function show_southCities() {
+            var southCities = taiwanCities[3];
+
+            cardRegion.innerHTML = "";
+
+            southCities.forEach(function (city, index) {
+                var cityData = orgData[city]; //取得陣列中依順序的城市資料
+
+                // 氣候圖片
+                var WxPicIndex = cityData.WxValue;
+                var WxPicUrl = WxPic[WxPicIndex];
+
+                // scaleUp 動畫時間
+                var animationScaleUpTime = 0.25*index + 0.3;
+                console.log(animationScaleUpTime);
+
+                //放這張城市哪片的資料
+                // console.log('cityData', city, cityData);
+                cardRegion.innerHTML +=
+                `
+                <div class="singleCard" style="animation: scaleUp ${animationScaleUpTime}s forwards;">
+                    <h3>${city}</h3>
+                    <p>${cityData.minT}° ~ ${cityData.maxT}°</p>   
+                    <p>${cityData.wxCondition}</p>
+                    <div><img src="${WxPicUrl}"><div>
+                    <p>${cityData.startTime.substr(0, 16).replaceAll('-', "/")}</p>
+                    <p>${cityData.endTime.substr(0, 16).replaceAll('-', "/")}</p>
+            
+                </div>
+                `;
+            });
+        }
+
+         // 東部城市
+         function show_eastCities() {
+            var eastCities = taiwanCities[4];
+
+            cardRegion.innerHTML = "";
+
+            eastCities.forEach(function (city, index) {
+                var cityData = orgData[city]; //取得陣列中依順序的城市資料
+
+                // 氣候圖片
+                var WxPicIndex = cityData.WxValue;
+                var WxPicUrl = WxPic[WxPicIndex];
+
+                // scaleUp 動畫時間
+                var animationScaleUpTime = 0.25*index + 0.3;
+                console.log(animationScaleUpTime);
+
+                //放這張城市哪片的資料
+                // console.log('cityData', city, cityData);
+                cardRegion.innerHTML +=
+                `
+                <div class="singleCard" style="animation: scaleUp ${animationScaleUpTime}s forwards;">
+                    <h3>${city}</h3>
+                    <p>${cityData.minT}° ~ ${cityData.maxT}°</p>   
+                    <p>${cityData.wxCondition}</p>
+                    <div><img src="${WxPicUrl}"><div>
+                    <p>${cityData.startTime.substr(0, 16).replaceAll('-', "/")}</p>
+                    <p>${cityData.endTime.substr(0, 16).replaceAll('-', "/")}</p>
+            
+                </div>
+                `;
+            });
+        }
+
+        // 離島城市
+        function show_islandsCities() {
+            var islandsCities = taiwanCities[5];
+
+            cardRegion.innerHTML = "";
+
+            islandsCities.forEach(function (city, index) {
+                var cityData = orgData[city]; //取得陣列中依順序的城市資料
+
+                // 氣候圖片
+                var WxPicIndex = cityData.WxValue;
+                var WxPicUrl = WxPic[WxPicIndex];
+
+                // scaleUp 動畫時間
+                var animationScaleUpTime = 0.25*index + 0.3;
+                console.log(animationScaleUpTime);
+
+                //放這張城市哪片的資料
+                // console.log('cityData', city, cityData);
+                cardRegion.innerHTML +=
+                `
+                <div class="singleCard" style="animation: scaleUp ${animationScaleUpTime}s forwards;">
+                    <h3>${city}</h3>
+                    <p>${cityData.minT}° ~ ${cityData.maxT}°</p>   
+                    <p>${cityData.wxCondition}</p>
+                    <div><img src="${WxPicUrl}"><div>
+                    <p>${cityData.startTime.substr(0, 16).replaceAll('-', "/")}</p>
+                    <p>${cityData.endTime.substr(0, 16).replaceAll('-', "/")}</p>
+            
+                </div>
+                `;
+            });
+        }
+    
  
      
 

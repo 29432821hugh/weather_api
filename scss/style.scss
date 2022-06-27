@@ -19,8 +19,6 @@ li {
 }
 
 header {
-    width: 100%;
-    /* background-color: #00ffff; */
     display: flex;
     justify-content: center;
     padding: .5rem 1rem;
@@ -33,7 +31,7 @@ header {
         border-radius: 25px;
         display: flex;
         justify-content: space-between;
-        padding: 5px;
+        padding: 5px 10px 0 10px;
         box-shadow: 5px 5px 3px lightblue;
 
         .logo {
@@ -75,12 +73,14 @@ header {
 }
 
 main {
-    width: 1100px;
+    max-width: 1100px;
     height: auto;
     margin: 0 auto;
     display: flex;
     flex-wrap: wrap;
-    padding-top: 50px;
+    padding: 50px 10px 0 10px;
+
+    
 }
 
 .singleCard {
@@ -100,6 +100,23 @@ main {
 .singleCard:hover{
     background-color: #ffffff;
 }
+
+@media (max-width: 880px){
+    .singleCard{
+        width: 48%;
+    }
+}
+
+@media (max-width: 600px){
+    main {
+        max-width: 400px;
+    }
+    .singleCard{
+        width: 100%;
+        max-width: 400px; 
+    }
+}
+
 
 @keyframes scaleUp {
     from {
