@@ -7,9 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="./pics/twicon/twicon.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!--===== SCROLL REVEAL =====-->
     <script src="https://unpkg.com/scrollreveal"></script>
-    <link rel="stylesheet" href="./scss/style.css">
+    <link rel="stylesheet" href="./css/style.css">
 </head>
 
 
@@ -48,9 +49,9 @@
 
 
     <script>
-        var url = 'https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization=CWB-084CA48B-7804-454D-BD88-FA80CAB4374F';
+        let url = 'https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization=CWB-084CA48B-7804-454D-BD88-FA80CAB4374F';
         // 二維陣列 [ [],[] ]
-        var taiwanCities = [
+        let taiwanCities = [
             // 全部
             ['基隆市', '新北市', '臺北市', '桃園市', '新竹市', '新竹縣', '苗栗縣', '臺中市', '南投縣', '彰化縣', '雲林縣', '嘉義市', '嘉義縣', '臺南市', '高雄市', '屏東縣', '宜蘭縣', '花蓮縣', '臺東縣', '澎湖縣', '金門縣', '連江縣'],
             // 北部
@@ -64,10 +65,7 @@
             // 離島
             ['澎湖縣', '金門縣', '連江縣'],
         ]
-
-        // 氣候對應圖片
-        var WxPic = ["0000000", "1111111", "./pics/晴時多雲.svg", "./pics/多雲時晴.svg", "./pics/多雲.svg", "./pics/多雲時陰.svg", "./pics/陰時多雲.svg", "./pics/陰天.svg", "./pics/多雲短暫雨.svg", "./pics/多雲時陰短暫雨.svg", "./pics/陰時多雲短暫雨.svg", "./pics/陰短暫雨.svg"]
-        var orgData = {};
+        let orgData = {};
 
         fetch_data(url);
         function fetch_data(url) {
@@ -88,41 +86,41 @@
             // 1
             console.log(myJson);
             // 2 
-            var locationS = myJson.records.location;
+            let locationS = myJson.records.location;
             console.log(locationS);
 
             locationS.forEach(eachLocation => {
                 // 城市名稱
-                var cityName = eachLocation.locationName;
+                let cityName = eachLocation.locationName;
                 console.log(cityName);
 
                 // 城市的各氣候元素  Wx PoP MinT CI MaxT 54
-                var weatherElementS = eachLocation.weatherElement
+                let weatherElementS = eachLocation.weatherElement
                 console.log(weatherElementS);
 
                 // Wx
-                var Wx = weatherElementS[0].time[0].parameter.parameterName
+                let Wx = weatherElementS[0].time[0].parameter.parameterName
 
                 // PoP
-                var PoP = weatherElementS[1].time[0].parameter.parameterName;
+                let PoP = weatherElementS[1].time[0].parameter.parameterName;
 
                 // MinT
-                var MinTemp = weatherElementS[2].time[0].parameter.parameterName;
+                let MinTemp = weatherElementS[2].time[0].parameter.parameterName;
 
                 // CI
-                var CI = weatherElementS[3].time[0].parameter.parameterName;
+                let CI = weatherElementS[3].time[0].parameter.parameterName;
 
                 // MaxT
-                var MaxTemp = weatherElementS[4].time[0].parameter.parameterName;
+                let MaxTemp = weatherElementS[4].time[0].parameter.parameterName;
 
                 // timeStart
-                var timeStart = weatherElementS[0].time[0].startTime;
+                let timeStart = weatherElementS[0].time[0].startTime;
 
                 // timeEnd
-                var timeEnd = weatherElementS[0].time[0].endTime;
+                let timeEnd = weatherElementS[0].time[0].endTime;
 
                 // WxValue
-                var WxValue = weatherElementS[0].time[0].parameter.parameterValue;
+                let WxValue = weatherElementS[0].time[0].parameter.parameterValue;
 
                 // 將城市名稱對應氣候存進物件
                 orgData[cityName] = {
@@ -132,13 +130,13 @@
         };
 
 
-        var cardRegion = document.querySelector('.cardRegion');
-        var allBtn = document.querySelector('.allBtn');
-        var northBtn = document.querySelector('.northBtn');
-        var middleBtn = document.querySelector('.middleBtn');
-        var southBtn = document.querySelector('.southBtn');
-        var eastBtn = document.querySelector('.eastBtn');
-        var islandsBtn = document.querySelector('.islandsBtn');
+        let cardRegion = document.querySelector('.cardRegion');
+        let allBtn = document.querySelector('.allBtn');
+        let northBtn = document.querySelector('.northBtn');
+        let middleBtn = document.querySelector('.middleBtn');
+        let southBtn = document.querySelector('.southBtn');
+        let eastBtn = document.querySelector('.eastBtn');
+        let islandsBtn = document.querySelector('.islandsBtn');
 
 
         // 所有城市
@@ -169,32 +167,29 @@
         islandsBtn.onclick = (e)=>{
             show_islandsCities();
         }
-        
+
+
+
         // 所有城市
         function show_taiwanCities() {
-                var allCities = taiwanCities[0];
+                let allCities = taiwanCities[0];
                 cardRegion.innerHTML = "";
 
                 allCities.forEach(function (city, index) {
-                    var cityData = orgData[city]; //取得陣列中依順序的城市資料
-
-                    // 氣候圖片
-                    var WxPicIndex = cityData.WxValue;
-                    var WxPicUrl = WxPic[WxPicIndex];
+                    let cityData = orgData[city]; //取得陣列中依順序的城市資料
 
                     // scaleUp 動畫時間
-                    var animationScaleUpTime = 0.25*index + 0.3;
+                    let animationScaleUpTime = 0.25*index + 0.3;
                     console.log(animationScaleUpTime);
 
                     //放這張城市哪片的資料
-                    // console.log('cityData', city, cityData);
                     cardRegion.innerHTML +=
                     `
                     <div class="singleCard" style="animation: scaleUp ${animationScaleUpTime}s forwards;">
                         <h3>${city}</h3>
                         <p>${cityData.minT}° ~ ${cityData.maxT}°</p>   
                         <p>${cityData.wxCondition}</p>
-                        <div><img src="${WxPicUrl}"><div>
+                        <div><img src="./pics/${cityData.WxValue}.svg"><div>
                         <p>${cityData.startTime.substr(0, 16).replaceAll('-', "/")}</p>
                         <p>${cityData.endTime.substr(0, 16).replaceAll('-', "/")}</p>
                 
@@ -206,19 +201,15 @@
 
         // 北部城市
         function show_northCities() {
-            var northCities = taiwanCities[1];
+            let northCities = taiwanCities[1];
 
             cardRegion.innerHTML = "";
 
             northCities.forEach(function (city, index) {
-                var cityData = orgData[city]; //取得陣列中依順序的城市資料
-
-                // 氣候圖片
-                var WxPicIndex = cityData.WxValue;
-                var WxPicUrl = WxPic[WxPicIndex];
+                let cityData = orgData[city]; //取得陣列中依順序的城市資料
 
                 // scaleUp 動畫時間
-                var animationScaleUpTime = 0.25*index + 0.3;
+                let animationScaleUpTime = 0.25*index + 0.3;
                 console.log(animationScaleUpTime);
 
                 //放這張城市哪片的資料
@@ -229,7 +220,7 @@
                     <h3>${city}</h3>
                     <p>${cityData.minT}° ~ ${cityData.maxT}°</p>   
                     <p>${cityData.wxCondition}</p>
-                    <div><img src="${WxPicUrl}"><div>
+                    <div><img src="./pics/${cityData.WxValue}.svg"><div>
                     <p>${cityData.startTime.substr(0, 16).replaceAll('-', "/")}</p>
                     <p>${cityData.endTime.substr(0, 16).replaceAll('-', "/")}</p>
             
@@ -242,19 +233,15 @@
 
          // 中部城市
         function show_middleCities() {
-            var middleCities = taiwanCities[2];
+            let middleCities = taiwanCities[2];
 
             cardRegion.innerHTML = "";
 
             middleCities.forEach(function (city, index) {
-                var cityData = orgData[city]; //取得陣列中依順序的城市資料
-
-                // 氣候圖片
-                var WxPicIndex = cityData.WxValue;
-                var WxPicUrl = WxPic[WxPicIndex];
+                let cityData = orgData[city]; //取得陣列中依順序的城市資料
 
                 // scaleUp 動畫時間
-                var animationScaleUpTime = 0.25*index + 0.3;
+                let animationScaleUpTime = 0.25*index + 0.3;
                 console.log(animationScaleUpTime);
 
                 //放這張城市哪片的資料
@@ -265,7 +252,7 @@
                     <h3>${city}</h3>
                     <p>${cityData.minT}° ~ ${cityData.maxT}°</p>   
                     <p>${cityData.wxCondition}</p>
-                    <div><img src="${WxPicUrl}"><div>
+                    <div><img src="./pics/${cityData.WxValue}.svg"><div>
                     <p>${cityData.startTime.substr(0, 16).replaceAll('-', "/")}</p>
                     <p>${cityData.endTime.substr(0, 16).replaceAll('-', "/")}</p>
             
@@ -278,19 +265,15 @@
 
          // 南部城市
          function show_southCities() {
-            var southCities = taiwanCities[3];
+            let southCities = taiwanCities[3];
 
             cardRegion.innerHTML = "";
 
             southCities.forEach(function (city, index) {
-                var cityData = orgData[city]; //取得陣列中依順序的城市資料
-
-                // 氣候圖片
-                var WxPicIndex = cityData.WxValue;
-                var WxPicUrl = WxPic[WxPicIndex];
+                let cityData = orgData[city]; //取得陣列中依順序的城市資料
 
                 // scaleUp 動畫時間
-                var animationScaleUpTime = 0.25*index + 0.3;
+                let animationScaleUpTime = 0.25*index + 0.3;
                 console.log(animationScaleUpTime);
 
                 //放這張城市哪片的資料
@@ -301,7 +284,7 @@
                     <h3>${city}</h3>
                     <p>${cityData.minT}° ~ ${cityData.maxT}°</p>   
                     <p>${cityData.wxCondition}</p>
-                    <div><img src="${WxPicUrl}"><div>
+                    <div><img src="./pics/${cityData.WxValue}.svg"><div>
                     <p>${cityData.startTime.substr(0, 16).replaceAll('-', "/")}</p>
                     <p>${cityData.endTime.substr(0, 16).replaceAll('-', "/")}</p>
             
@@ -312,19 +295,15 @@
 
          // 東部城市
          function show_eastCities() {
-            var eastCities = taiwanCities[4];
+            let eastCities = taiwanCities[4];
 
             cardRegion.innerHTML = "";
 
             eastCities.forEach(function (city, index) {
-                var cityData = orgData[city]; //取得陣列中依順序的城市資料
-
-                // 氣候圖片
-                var WxPicIndex = cityData.WxValue;
-                var WxPicUrl = WxPic[WxPicIndex];
+                let cityData = orgData[city]; //取得陣列中依順序的城市資料
 
                 // scaleUp 動畫時間
-                var animationScaleUpTime = 0.25*index + 0.3;
+                let animationScaleUpTime = 0.25*index + 0.3;
                 console.log(animationScaleUpTime);
 
                 //放這張城市哪片的資料
@@ -335,7 +314,7 @@
                     <h3>${city}</h3>
                     <p>${cityData.minT}° ~ ${cityData.maxT}°</p>   
                     <p>${cityData.wxCondition}</p>
-                    <div><img src="${WxPicUrl}"><div>
+                    <div><img src="./pics/${cityData.WxValue}.svg"><div>
                     <p>${cityData.startTime.substr(0, 16).replaceAll('-', "/")}</p>
                     <p>${cityData.endTime.substr(0, 16).replaceAll('-', "/")}</p>
             
@@ -346,19 +325,15 @@
 
         // 離島城市
         function show_islandsCities() {
-            var islandsCities = taiwanCities[5];
+            let islandsCities = taiwanCities[5];
 
             cardRegion.innerHTML = "";
 
             islandsCities.forEach(function (city, index) {
-                var cityData = orgData[city]; //取得陣列中依順序的城市資料
-
-                // 氣候圖片
-                var WxPicIndex = cityData.WxValue;
-                var WxPicUrl = WxPic[WxPicIndex];
+                let cityData = orgData[city]; //取得陣列中依順序的城市資料
 
                 // scaleUp 動畫時間
-                var animationScaleUpTime = 0.25*index + 0.3;
+                let animationScaleUpTime = 0.25*index + 0.3;
                 console.log(animationScaleUpTime);
 
                 //放這張城市哪片的資料
@@ -369,7 +344,7 @@
                     <h3>${city}</h3>
                     <p>${cityData.minT}° ~ ${cityData.maxT}°</p>   
                     <p>${cityData.wxCondition}</p>
-                    <div><img src="${WxPicUrl}"><div>
+                    <div><img src="./pics/${cityData.WxValue}.svg"><div>
                     <p>${cityData.startTime.substr(0, 16).replaceAll('-', "/")}</p>
                     <p>${cityData.endTime.substr(0, 16).replaceAll('-', "/")}</p>
             
