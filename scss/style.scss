@@ -31,45 +31,89 @@ header {
         border-radius: 25px;
         display: flex;
         justify-content: space-between;
-        padding: 5px 10px 0 10px;
+        padding: 0 10px 0 10px;
         box-shadow: 5px 5px 3px lightblue;
+    }
 
-        .logo {
-            display: flex;
-            align-items: center;
-    
-            i {
-                color: #6EAC7D;
-                font-size: 40px;
-            }
-        }
+    .logo {
+        display: flex;
+        align-items: center;
 
-        .menu ul {
-            display: flex;
-            align-items: center;
+        i {
+            color: #6EAC7D;
+            font-size: 40px;
         }
+    }
 
-        .menu ul li {
-            padding: 0.25rem 0.9rem;
-            margin: 0 1.5rem;
-            border-radius: 20px;
-            a {
-                color: #333333;
-                text-decoration: none;
-            } 
-        }
+    .menu{
+        display: flex;
+        align-items: center;
+    } 
 
-        .menu ul li:hover {
-            background-color: #ffffffaf;    
-        }
+    label{
+        display: none;
+        cursor: pointer;
+    }
+
+    .menu ul {
+        display: flex;
+        align-items: center;
+        padding: 0;
+    }
+
+    .menu ul li a{
+        text-decoration: none;
+        color: #333333;
+        display: block;
+        padding: 0.25rem 0.9rem;
+        margin: 0 1.5rem;
+        border-radius: 20px;
+    }
+
+    .menu ul li a:hover {
+        background-color: #ffffffaf;    
     }
 }
 
-
-
-
-.burgerLink {
-    display: none;
+@media (max-width: 900px){
+    header{
+        label{
+            display: block;
+        }
+        .menu ul{
+            display: block;
+            height: 0;
+            overflow: hidden;
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 42px;
+            z-index: 999;
+            background-color: #f2f2f2;
+            transition: 0.2s;
+            border-radius: 10px;
+        }
+        #checkbox:checked ~ul{
+            height: 180px;  
+        }
+        .menu ul li a {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin: 0;  
+        } 
+        .menu ul li:after{
+            content: '';
+            position: relative;
+            left: 50%;
+            transform: translate(-50%, 0);
+            display: block;
+            width: 90%;
+            height: 1px;
+            background-color: rgba(206, 204, 204, 0.342);
+        }   
+    }
+    
 }
 
 main {
@@ -78,9 +122,7 @@ main {
     margin: 0 auto;
     display: flex;
     flex-wrap: wrap;
-    padding: 50px 10px 0 10px;
-
-    
+    padding: 50px 10px 0 10px; 
 }
 
 .singleCard {
@@ -95,6 +137,8 @@ main {
     box-shadow: 5px 5px 3px rgba(228, 173, 230, 0.658);
     color: #333;
     font-weight: bold;
+    position: relative;
+    z-index: -1;
 }
 
 .singleCard:hover{

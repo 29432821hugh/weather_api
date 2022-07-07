@@ -18,8 +18,11 @@
     <header>
         <nav>
             <div class="logo"><i class="twicon-main-island"></i>台灣氣候</div>
-            <div class="burgerLink"></div>
             <div class="menu">
+                <label for="checkbox">
+                    <i class="fa-solid fa-bars"></i>
+                </label>   
+                <input type="checkbox" id="checkbox" hidden>
                 <ul>
                     <li>
                         <a class="allBtn" href="#">全台灣</a>
@@ -130,13 +133,13 @@
         };
 
 
-        let cardRegion = document.querySelector('.cardRegion');
-        let allBtn = document.querySelector('.allBtn');
-        let northBtn = document.querySelector('.northBtn');
-        let middleBtn = document.querySelector('.middleBtn');
-        let southBtn = document.querySelector('.southBtn');
-        let eastBtn = document.querySelector('.eastBtn');
-        let islandsBtn = document.querySelector('.islandsBtn');
+        const cardRegion = document.querySelector('.cardRegion');
+        const allBtn = document.querySelector('.allBtn');
+        const northBtn = document.querySelector('.northBtn');
+        const middleBtn = document.querySelector('.middleBtn');
+        const southBtn = document.querySelector('.southBtn');
+        const eastBtn = document.querySelector('.eastBtn');
+        const islandsBtn = document.querySelector('.islandsBtn');
 
 
         // 所有城市
